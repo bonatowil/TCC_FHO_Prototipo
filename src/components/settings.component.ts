@@ -11,7 +11,6 @@ import { ToastService } from '../services/toast.service';
   template: `
     <div class="h-full flex flex-col overflow-hidden animate-fade-in-up">
       
-      <!-- Header -->
       <div class="shrink-0 mb-4 sm:mb-6">
         <h2 class="text-xl sm:text-2xl lg:text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-slate-900 to-slate-600 dark:from-white dark:to-slate-400">
           Configurações
@@ -21,10 +20,8 @@ import { ToastService } from '../services/toast.service';
         </p>
       </div>
       
-      <!-- Scrollable Content -->
       <div class="flex-1 overflow-y-auto pr-1 sm:pr-2 pb-20 md:pb-6 space-y-4 sm:space-y-6">
 
-        <!-- Profit Margins Section -->
         <div class="glass-card p-4 sm:p-6 rounded-xl sm:rounded-2xl">
           <h3 class="text-base sm:text-xl font-bold text-slate-900 dark:text-white mb-4 sm:mb-6 flex items-center gap-2">
             <svg class="w-5 h-5 sm:w-6 sm:h-6 text-primary-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4"></path></svg>
@@ -76,7 +73,6 @@ import { ToastService } from '../services/toast.service';
           </div>
         </div>
 
-        <!-- Interested Brands Section -->
         <div class="glass-card p-4 sm:p-6 rounded-xl sm:rounded-2xl">
           <h3 class="text-base sm:text-xl font-bold text-slate-900 dark:text-white mb-4 sm:mb-6 flex items-center gap-2">
             <svg class="w-5 h-5 sm:w-6 sm:h-6 text-primary-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"></path></svg>
@@ -113,7 +109,6 @@ import { ToastService } from '../services/toast.service';
           </div>
         </div>
 
-        <!-- Notifications Section -->
         <div class="glass-card p-4 sm:p-6 rounded-xl sm:rounded-2xl">
           <h3 class="text-base sm:text-xl font-bold text-slate-900 dark:text-white mb-4 sm:mb-6 flex items-center gap-2">
             <svg class="w-5 h-5 sm:w-6 sm:h-6 text-primary-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"></path></svg>
@@ -145,7 +140,6 @@ import { ToastService } from '../services/toast.service';
           </div>
         </div>
 
-        <!-- Business Rules Section -->
         <div class="glass-card p-4 sm:p-6 rounded-xl sm:rounded-2xl">
           <h3 class="text-base sm:text-xl font-bold text-slate-900 dark:text-white mb-4 sm:mb-6 flex items-center gap-2">
             <svg class="w-5 h-5 sm:w-6 sm:h-6 text-primary-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
@@ -192,7 +186,6 @@ import { ToastService } from '../services/toast.service';
           </div>
         </div>
 
-        <!-- Save Button -->
         <div class="flex justify-center sm:justify-end pt-2 sm:pt-4">
           <button 
             (click)="saveSettings()"

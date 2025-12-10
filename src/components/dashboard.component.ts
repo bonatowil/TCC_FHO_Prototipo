@@ -11,7 +11,6 @@ import * as d3 from 'd3';
   template: `
     <div class="h-full flex flex-col overflow-hidden">
       
-      <!-- Header Section -->
       <div class="shrink-0 mb-4 sm:mb-6">
         <div class="flex flex-col gap-3 sm:gap-4">
           <div class="flex items-center justify-between gap-4">
@@ -24,7 +23,6 @@ import * as d3 from 'd3';
               </p>
             </div>
             
-            <!-- Activity Button -->
             <button 
               (click)="showActivities.set(!showActivities())"
               class="relative h-10 w-10 sm:h-11 sm:w-11 flex items-center justify-center rounded-2xl border border-slate-200/70 dark:border-white/10 bg-white/70 dark:bg-slate-800/60 shadow-lg shadow-slate-200/60 dark:shadow-black/30 text-slate-500 hover:text-primary-500 transition-all hover:-translate-y-0.5 active:scale-95">
@@ -32,9 +30,7 @@ import * as d3 from 'd3';
             </button>
           </div>
           
-          <!-- Activities Panel -->
           @if (showActivities()) {
-            <!-- Backdrop for mobile -->
             <div class="fixed inset-0 bg-black/30 z-40 md:hidden" (click)="showActivities.set(false)"></div>
             
             <div class="fixed inset-x-4 top-20 md:inset-auto md:absolute md:top-20 md:right-4 md:w-96 glass-card rounded-2xl shadow-2xl z-50 max-h-[70vh] md:max-h-96 overflow-hidden flex flex-col animate-fade-in-up">
@@ -70,7 +66,6 @@ import * as d3 from 'd3';
             </div>
           }
           
-          <!-- Trending Ticker (Hidden on small screens) -->
           <div class="hidden md:flex items-center gap-4 sm:gap-6 bg-slate-900 text-slate-300 text-xs px-3 sm:px-4 py-2 rounded-full border border-slate-700 shadow-sm overflow-hidden animate-fade-in-up w-fit" style="animation-delay: 300ms;">
             <span class="font-bold text-white uppercase tracking-wider text-[10px] sm:text-xs">Em Alta:</span>
             <div class="flex items-center gap-3 sm:gap-4 whitespace-nowrap">
@@ -82,10 +77,8 @@ import * as d3 from 'd3';
         </div>
       </div>
 
-      <!-- Scrollable Content -->
       <div class="flex-1 overflow-y-auto pr-1 sm:pr-2 pb-20 md:pb-4 space-y-4 sm:space-y-6 lg:space-y-8">
         
-        <!-- Metrics Cards -->
         <div class="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 lg:gap-6">
           
           <button (click)="navigate.emit('opportunities')" class="glass-card p-3 sm:p-4 lg:p-6 rounded-xl sm:rounded-2xl relative overflow-hidden group animate-fade-in-up hover:-translate-y-1 hover:shadow-2xl transition-all duration-300 cursor-pointer text-left" style="animation-delay: 100ms;">
@@ -154,7 +147,6 @@ import * as d3 from 'd3';
           </button>
         </div>
 
-        <!-- Second Row Metrics -->
         <div class="grid grid-cols-2 lg:grid-cols-2 gap-3 sm:gap-4 lg:gap-6">
           
           <button (click)="navigate.emit('opportunities')" class="glass-card p-3 sm:p-4 lg:p-6 rounded-xl sm:rounded-2xl relative overflow-hidden group animate-fade-in-up hover:-translate-y-1 hover:shadow-2xl transition-all duration-300 cursor-pointer text-left" style="animation-delay: 500ms;">
@@ -192,10 +184,8 @@ import * as d3 from 'd3';
           </button>
         </div>
 
-        <!-- Top Opportunities & Regional Analysis Row -->
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6">
           
-          <!-- Top Opportunities -->
           <div class="glass-card rounded-xl sm:rounded-2xl p-4 sm:p-6 animate-fade-in-up" style="animation-delay: 700ms;">
             <h3 class="text-base sm:text-lg font-bold text-slate-900 dark:text-white mb-4 sm:mb-6 flex items-center gap-2">
               <svg class="w-5 h-5 sm:w-6 sm:h-6 text-emerald-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path></svg>
@@ -221,7 +211,6 @@ import * as d3 from 'd3';
             </div>
           </div>
 
-          <!-- Regional Analysis -->
           <div class="glass-card rounded-xl sm:rounded-2xl p-4 sm:p-6 animate-fade-in-up" style="animation-delay: 800ms;">
             <h3 class="text-base sm:text-lg font-bold text-slate-900 dark:text-white mb-4 sm:mb-6 flex items-center gap-2">
               <svg class="w-5 h-5 sm:w-6 sm:h-6 text-primary-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
@@ -244,7 +233,6 @@ import * as d3 from 'd3';
           </div>
         </div>
 
-        <!-- Market Trends Chart Section -->
         <div class="glass-card rounded-xl sm:rounded-2xl p-4 sm:p-6 lg:p-8 animate-fade-in-up" style="animation-delay: 1300ms;">
           <div class="flex flex-col gap-4 sm:gap-6 mb-4 sm:mb-6 lg:mb-8">
             <div class="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-3 sm:gap-6">

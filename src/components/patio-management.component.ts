@@ -11,7 +11,6 @@ import { ToastService } from '../services/toast.service';
   template: `
     <div class="h-full flex flex-col overflow-hidden animate-fade-in-up">
       
-      <!-- Header -->
       <div class="shrink-0 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 sm:gap-4 mb-4 sm:mb-6">
         <div>
           <h2 class="text-xl sm:text-2xl lg:text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-slate-900 to-slate-600 dark:from-white dark:to-slate-400">
@@ -29,10 +28,8 @@ import { ToastService } from '../services/toast.service';
         </button>
       </div>
 
-      <!-- Scrollable Content -->
       <div class="flex-1 overflow-y-auto pr-1 sm:pr-2 pb-20 md:pb-4 space-y-4 sm:space-y-6">
 
-        <!-- Form Modal/Card -->
         @if (showForm()) {
           <div class="glass-card p-4 sm:p-6 rounded-xl sm:rounded-2xl animate-fade-in-up">
             <h3 class="text-lg sm:text-xl font-bold text-slate-900 dark:text-white mb-4 sm:mb-6">
@@ -127,7 +124,6 @@ import { ToastService } from '../services/toast.service';
           </div>
         }
 
-        <!-- Patio Cards Grid -->
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
           @for (patio of dataService.patios(); track patio.id) {
             <div class="glass-card p-4 sm:p-6 rounded-xl sm:rounded-2xl hover:scale-[1.02] transition-transform duration-300" [class.opacity-50]="!patio.isActive">

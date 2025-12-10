@@ -12,7 +12,6 @@ import { ToastService } from '../services/toast.service';
   template: `
     <div class="flex flex-col h-full gap-4 md:gap-6 overflow-hidden pb-4">
       
-      <!-- Mobile Header with Filter Toggle -->
       <div class="shrink-0 flex flex-col gap-3">
         <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 bg-white/50 dark:bg-slate-900/50 backdrop-blur-xl p-3 sm:p-4 rounded-2xl border border-white/20 dark:border-white/5 z-20 animate-fade-in-up shadow-sm">
           <div class="flex-1 min-w-0">
@@ -23,7 +22,6 @@ import { ToastService } from '../services/toast.service';
           </div>
           
           <div class="flex flex-wrap items-center gap-2 w-full sm:w-auto">
-            <!-- Mobile Filter Toggle -->
             <button 
               (click)="showMobileFilters.set(!showMobileFilters())"
               class="lg:hidden flex items-center gap-2 px-3 py-2 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-300 rounded-xl text-sm font-medium hover:bg-slate-50 dark:hover:bg-slate-700 transition-colors shadow-sm">
@@ -90,13 +88,10 @@ import { ToastService } from '../services/toast.service';
 
       <div class="flex flex-col lg:flex-row flex-1 gap-4 lg:gap-6 overflow-hidden min-h-0">
         
-        <!-- Mobile Filters Drawer -->
         @if (showMobileFilters()) {
           <div class="lg:hidden fixed inset-0 z-50 flex flex-col">
-            <!-- Backdrop -->
             <div class="absolute inset-0 bg-black/50" (click)="showMobileFilters.set(false)"></div>
             
-            <!-- Drawer -->
             <div class="absolute bottom-0 left-0 right-0 max-h-[80vh] bg-white dark:bg-slate-900 rounded-t-3xl overflow-hidden animate-slide-up safe-area-bottom">
               <div class="flex items-center justify-between p-4 border-b border-slate-200 dark:border-slate-700">
                 <h3 class="font-bold text-slate-900 dark:text-white text-lg">Filtros</h3>
@@ -109,7 +104,6 @@ import { ToastService } from '../services/toast.service';
               </div>
               
               <div class="overflow-y-auto p-4 space-y-6 max-h-[calc(80vh-60px)]">
-                <!-- Filter Content (Same as desktop) -->
                 <div class="space-y-4">
                   <p class="text-xs font-bold text-slate-400 uppercase tracking-wider">Marca</p>
                   <div class="flex flex-wrap gap-2">
@@ -186,7 +180,6 @@ import { ToastService } from '../services/toast.service';
           </div>
         }
 
-        <!-- Desktop Sidebar Filters -->
         <aside class="hidden lg:flex shrink-0 w-72 flex-col h-full min-h-0">
           <div class="glass-card rounded-2xl p-5 flex flex-col h-full overflow-y-auto animate-fade-in-up">
             
@@ -313,7 +306,6 @@ import { ToastService } from '../services/toast.service';
           </div>
         </aside>
 
-        <!-- Vehicle Grid -->
         <div class="flex-1 flex flex-col min-h-0 overflow-hidden">
           <div class="flex-1 overflow-y-auto pr-1 md:pr-2 pb-20 md:pb-4">
             <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4 md:gap-6">

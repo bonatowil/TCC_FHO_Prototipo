@@ -11,7 +11,6 @@ import * as d3 from 'd3';
   template: `
     <div class="h-full flex flex-col">
       
-      <!-- Header -->
       <div class="flex items-center gap-3 sm:gap-4 mb-4 sm:mb-6 animate-fade-in-up shrink-0">
         <button (click)="back.emit()" class="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 flex items-center justify-center text-slate-500 hover:text-slate-900 dark:hover:text-white transition-colors shadow-sm hover:scale-110 active:scale-95">
           <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
@@ -24,14 +23,11 @@ import * as d3 from 'd3';
         </div>
       </div>
 
-      <!-- Content -->
       <div class="flex-1 overflow-y-auto pr-1 sm:pr-2 pb-20 md:pb-10">
         <div class="grid grid-cols-1 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8">
           
-          <!-- Main Content Column -->
           <div class="lg:col-span-2 space-y-4 sm:space-y-6">
             
-            <!-- Vehicle Info Card -->
             <div class="glass-card p-4 sm:p-6 rounded-2xl sm:rounded-3xl animate-fade-in-up" style="animation-delay: 100ms;">
               <div class="flex flex-col sm:flex-row gap-4 sm:gap-6">
                 <img [src]="vehicle().image" class="w-full sm:w-48 h-40 sm:h-32 object-cover rounded-xl shadow-lg hover:scale-105 transition-transform duration-500 cursor-pointer">
@@ -70,7 +66,6 @@ import * as d3 from 'd3';
               </div>
             </div>
 
-            <!-- Price Validation Card -->
             <div class="glass-card p-4 sm:p-6 rounded-2xl sm:rounded-3xl animate-fade-in-up" style="animation-delay: 200ms;">
               <h3 class="text-base sm:text-lg font-bold text-slate-900 dark:text-white mb-4 sm:mb-6">Validação de Preço de Mercado</h3>
               
@@ -111,7 +106,6 @@ import * as d3 from 'd3';
 
             </div>
 
-            <!-- Price Trend Chart Card -->
             <div class="glass-card p-4 sm:p-6 rounded-2xl sm:rounded-3xl animate-fade-in-up" style="animation-delay: 300ms;">
                <h3 class="text-base sm:text-lg font-bold text-slate-900 dark:text-white mb-3 sm:mb-4">Tendência de Preços</h3>
                <div class="h-48 sm:h-64 w-full" #chartContainer></div>
@@ -119,10 +113,8 @@ import * as d3 from 'd3';
 
           </div>
 
-          <!-- Sidebar Column -->
           <div class="space-y-4 sm:space-y-6">
             
-            <!-- Financial Summary Card -->
             <div class="glass-card p-4 sm:p-6 rounded-2xl sm:rounded-3xl bg-gradient-to-br from-slate-100 to-slate-200 dark:from-slate-800 dark:to-slate-900 text-slate-900 dark:text-white border-none shadow-xl animate-fade-in-up hover:scale-[1.02] transition-transform duration-300" style="animation-delay: 400ms;">
                <h3 class="font-bold text-base sm:text-lg mb-4 sm:mb-6">Resumo Financeiro</h3>
                
@@ -147,7 +139,6 @@ import * as d3 from 'd3';
                </button>
             </div>
   
-            <!-- NLP Analysis Card -->
             <div class="glass-card p-4 sm:p-6 rounded-2xl sm:rounded-3xl animate-fade-in-up" style="animation-delay: 500ms;">
               <h3 class="font-bold text-slate-900 dark:text-white mb-3 sm:mb-4 text-sm sm:text-base">Análise Semântica (PLN)</h3>
               

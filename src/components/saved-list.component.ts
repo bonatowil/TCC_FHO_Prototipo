@@ -11,7 +11,6 @@ import { ToastService } from '../services/toast.service';
   template: `
     <div class="h-full flex flex-col space-y-4 sm:space-y-6 overflow-hidden">
       
-      <!-- Header Section -->
       <div class="shrink-0 animate-fade-in-up">
         <div class="flex flex-col gap-3 sm:gap-4 bg-white/60 dark:bg-slate-800/60 backdrop-blur-sm p-3 sm:p-5 rounded-xl sm:rounded-2xl border border-slate-200/50 dark:border-slate-700/50">
           <div class="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-3">
@@ -29,7 +28,6 @@ import { ToastService } from '../services/toast.service';
               </div>
             </div>
             
-            <!-- Status Badges -->
             <div class="flex gap-2 overflow-x-auto pb-1 sm:pb-0 -mx-1 px-1 sm:mx-0 sm:px-0">
               <div class="bg-cyan-50 dark:bg-cyan-900/20 border border-cyan-200 dark:border-cyan-800/50 rounded-lg sm:rounded-xl px-2.5 sm:px-4 py-1.5 sm:py-2 text-center min-w-[60px] sm:min-w-[80px] shrink-0">
                 <p class="text-base sm:text-xl font-bold text-cyan-600 dark:text-cyan-400">{{ getCountByStatus('Salvo') }}</p>
@@ -48,7 +46,6 @@ import { ToastService } from '../services/toast.service';
         </div>
       </div>
 
-      <!-- Filter Tabs -->
       <div class="shrink-0 flex gap-2 overflow-x-auto pb-1 -mx-1 px-1 animate-fade-in-up" style="animation-delay: 100ms;">
         <button 
           (click)="activeFilter.set('all')"
@@ -86,14 +83,12 @@ import { ToastService } from '../services/toast.service';
         </button>
       </div>
 
-      <!-- Vehicle Cards Grid -->
       <div class="flex-1 overflow-y-auto pr-1 sm:pr-2 pb-20 md:pb-10">
         <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4 sm:gap-6">
           @for (vehicle of filteredVehicles(); track vehicle.id; let i = $index) {
             <div class="group relative bg-white dark:bg-slate-800/50 backdrop-blur-sm rounded-2xl sm:rounded-3xl overflow-hidden border border-slate-200/50 dark:border-slate-700/50 shadow-lg shadow-slate-200/50 dark:shadow-black/20 hover:shadow-xl transition-all duration-500 hover:-translate-y-1 animate-fade-in-up" 
                   [style.animation-delay]="(i * 60) + 'ms'">
               
-              <!-- Status Badge -->
               <div class="absolute top-2 sm:top-4 left-2 sm:left-4 z-20">
                 <span [class]="getStatusBadgeClass(vehicle.negotiationStatus)" class="px-2 sm:px-3 py-1 sm:py-1.5 rounded-full text-[10px] sm:text-xs font-bold shadow-lg flex items-center gap-1 sm:gap-1.5">
                   <span class="w-1 h-1 sm:w-1.5 sm:h-1.5 rounded-full bg-current opacity-70"></span>
@@ -101,7 +96,6 @@ import { ToastService } from '../services/toast.service';
                 </span>
               </div>
               
-              <!-- Margin Badge -->
               <div class="absolute top-2 sm:top-4 right-2 sm:right-4 z-20">
                 <div class="bg-emerald-500 text-white px-2 sm:px-3 py-1 sm:py-1.5 rounded-full text-[10px] sm:text-xs font-bold shadow-lg flex items-center gap-1">
                   <svg class="w-2.5 h-2.5 sm:w-3 sm:h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path></svg>
@@ -109,7 +103,6 @@ import { ToastService } from '../services/toast.service';
                 </div>
               </div>
 
-              <!-- Image Section -->
               <div class="relative h-36 sm:h-48 overflow-hidden">
                 <img [src]="vehicle.image" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
                 <div class="absolute inset-0 bg-gradient-to-t from-slate-900 via-slate-900/40 to-transparent"></div>
@@ -129,10 +122,8 @@ import { ToastService } from '../services/toast.service';
                 </div>
               </div>
 
-              <!-- Content Section -->
               <div class="p-3 sm:p-5 space-y-3 sm:space-y-5">
                 
-                <!-- Price Info -->
                 <div class="flex items-center justify-between p-3 sm:p-4 bg-slate-50 dark:bg-slate-900/50 rounded-xl sm:rounded-2xl">
                   <div>
                     <p class="text-[9px] sm:text-xs text-slate-500 dark:text-slate-400 uppercase font-medium">Preço</p>
@@ -144,7 +135,6 @@ import { ToastService } from '../services/toast.service';
                   </div>
                 </div>
                 
-                <!-- Status Select -->
                 <div class="space-y-1.5 sm:space-y-2">
                   <label class="text-[9px] sm:text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider">Status</label>
                   <div class="relative">
@@ -163,7 +153,6 @@ import { ToastService } from '../services/toast.service';
                   </div>
                 </div>
 
-                <!-- Notes -->
                 <div class="space-y-1.5 sm:space-y-2">
                    <label class="text-[9px] sm:text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider">Notas</label>
                    <textarea 
@@ -174,7 +163,6 @@ import { ToastService } from '../services/toast.service';
                    ></textarea>
                 </div>
 
-                <!-- Action Buttons -->
                 <div class="flex gap-2 sm:gap-3 pt-1 sm:pt-2">
                   <button (click)="viewDetails.emit(vehicle)" class="flex-1 py-2.5 sm:py-3 px-3 sm:px-4 rounded-lg sm:rounded-xl bg-slate-100 dark:bg-slate-900/80 text-slate-700 dark:text-slate-300 font-semibold text-xs sm:text-sm text-center hover:bg-slate-200 dark:hover:bg-slate-900 transition-all flex items-center justify-center gap-1.5 sm:gap-2">
                     <svg class="w-3.5 h-3.5 sm:w-4 sm:h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path></svg>
