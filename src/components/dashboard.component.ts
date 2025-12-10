@@ -16,10 +16,10 @@ import * as d3 from 'd3';
           <div class="flex items-center justify-between gap-4">
             <div class="flex-1">
               <h2 class="text-xl sm:text-2xl lg:text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-slate-900 to-slate-600 dark:from-white dark:to-slate-400 animate-fade-in-up" style="animation-delay: 100ms;">
-                Inteligência de Mercado
+                Protótipo do Sistema de Gestão de Veículos com Agente de IA
               </h2>
               <p class="text-sm sm:text-base text-slate-500 dark:text-slate-400 mt-1 animate-fade-in-up" style="animation-delay: 200ms;">
-                Olá, {{ dataService.currentUser()?.name }}. O mercado está <span class="text-emerald-500 font-bold">aquecido</span> hoje.
+                Olá, <span class="text-emerald-500 font-bold">{{ dataService.currentUser()?.name }}</span>. 
               </p>
             </div>
             
