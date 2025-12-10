@@ -3,6 +3,7 @@ import { Component, output, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { DataService } from '../services/data.service';
+import { ToastService } from '../services/toast.service';
 
 @Component({
   selector: 'app-manual-entry',
@@ -119,6 +120,7 @@ export class ManualEntryComponent {
   save = output<void>();
   
   dataService = inject(DataService);
+  toast = inject(ToastService);
 
   brand = '';
   model = '';
@@ -192,6 +194,7 @@ export class ManualEntryComponent {
       price: this.price,
       image: this.imagePreview
     });
+    this.toast.add('Veículo adicionado ao estoque');
     this.save.emit();
   }
 }

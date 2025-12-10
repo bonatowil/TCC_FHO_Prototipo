@@ -12,6 +12,7 @@ import { PatioManagementComponent } from './components/patio-management.componen
 import { SettingsComponent } from './components/settings.component';
 import { UserManagementComponent } from './components/user-management.component';
 import { DataService, Vehicle } from './services/data.service';
+import { ToastService } from './services/toast.service';
 
 type View = 'dashboard' | 'opportunities' | 'saved' | 'inventory' | 'settings' | 'patios' | 'users';
 
@@ -26,8 +27,17 @@ export class AppComponent {
   selectedVehicle = signal<Vehicle | null>(null);
   showManualEntry = signal(false);
   showNotifications = signal(false);
+  showMobileMenu = signal(false);
   darkMode = signal(true);
   selectedPatioFilter: string | null = null; 
+  editInventoryItem = signal<Vehicle | null>(null);
+  editForm = signal({
+    price: 0,
+    km: 0,
+    inventoryStatus: 'Em Estoque'
+  });
+  deleteConfirmItem = signal<Vehicle | null>(null);
+  toasts = this.toastService.toasts;
 
   savedCount = computed(() => {
     return this.dataService.opportunities().filter(v => ['Salvo', 'Em Contato', 'Negociando'].includes(v.negotiationStatus)).length;
@@ -37,7 +47,7 @@ export class AppComponent {
     return this.dataService.opportunities().filter(v => v.negotiationStatus === 'Novo').length;
   });
 
-  constructor(public dataService: DataService) {
+  constructor(public dataService: DataService, private toastService: ToastService) {
     effect(() => {
       if (!this.dataService.currentUser()) {
         this.selectedVehicle.set(null);
@@ -107,5 +117,55 @@ export class AppComponent {
   
   onPatioFilterChange(value: string) {
     this.selectedPatioFilter = value === '' ? null : value;
+  }
+
+  updateEditForm(field: keyof ReturnType<typeof this.editForm>, value: any) {
+    this.editForm.update((prev) => ({
+      ...prev,
+      [field]: field === 'price' || field === 'km' ? Number(value) : value
+    }));
+  }
+
+  startEditInventory(item: Vehicle) {
+    this.editInventoryItem.set(item);
+    this.editForm.set({
+      price: item.price,
+      km: item.km,
+      inventoryStatus: item.inventoryStatus || 'Em Estoque'
+    });
+  }
+
+  saveInventoryEdit() {
+    const target = this.editInventoryItem();
+    if (!target) return;
+    const form = this.editForm();
+
+    this.dataService.updateInventoryItem(target.id, {
+      price: form.price,
+      km: form.km,
+      inventoryStatus: form.inventoryStatus as Vehicle['inventoryStatus']
+    });
+
+    this.editInventoryItem.set(null);
+    this.toastService.add('Veículo atualizado');
+  }
+
+  deleteInventoryItem(item: Vehicle) {
+    this.deleteConfirmItem.set(item);
+  }
+
+  confirmDelete() {
+    const item = this.deleteConfirmItem();
+    if (!item) return;
+    this.dataService.deleteInventoryItem(item.id);
+    if (this.selectedVehicle()?.id === item.id) {
+      this.selectedVehicle.set(null);
+    }
+    this.deleteConfirmItem.set(null);
+    this.toastService.add('Veículo removido do estoque', 'info');
+  }
+
+  cancelDelete() {
+    this.deleteConfirmItem.set(null);
   }
 }

@@ -2,33 +2,34 @@ import { Component, inject, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { DataService, User } from '../services/data.service';
+import { ToastService } from '../services/toast.service';
 
 @Component({
   selector: 'app-user-management',
   standalone: true,
   imports: [CommonModule, FormsModule],
   template: `
-    <div class="space-y-6 animate-fade-in-up">
-      <div class="flex items-center justify-between">
+    <div class="space-y-6 animate-fade-in-up pb-20 md:pb-0">
+      <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
         <div>
-          <h2 class="text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-slate-900 to-slate-600 dark:from-white dark:to-slate-400">
+          <h2 class="text-2xl sm:text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-slate-900 to-slate-600 dark:from-white dark:to-slate-400">
             Gerenciamento de Usuários
           </h2>
-          <p class="text-slate-500 dark:text-slate-400 mt-1">
+          <p class="text-slate-500 dark:text-slate-400 mt-1 text-sm sm:text-base">
             Cadastre e gerencie usuários do sistema
           </p>
         </div>
         <button 
           (click)="showForm.set(true)" 
-          class="px-6 py-3 rounded-xl bg-primary-500 text-white font-bold shadow-lg shadow-primary-500/30 hover:bg-primary-600 transition-colors flex items-center gap-2">
+          class="w-full sm:w-auto px-4 sm:px-6 py-3 rounded-xl bg-primary-500 text-white font-bold shadow-lg shadow-primary-500/30 hover:bg-primary-600 transition-colors flex items-center justify-center gap-2 text-sm sm:text-base">
           <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
           Novo Usuário
         </button>
       </div>
 
       @if (showForm()) {
-        <div class="glass-card p-6 rounded-2xl animate-fade-in-up">
-          <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-6">
+        <div class="glass-card p-4 sm:p-6 rounded-2xl animate-fade-in-up">
+          <h3 class="text-lg sm:text-xl font-bold text-slate-900 dark:text-white mb-4 sm:mb-6">
             {{ editingUser() ? 'Editar Usuário' : 'Novo Usuário' }}
           </h3>
           
@@ -40,9 +41,9 @@ import { DataService, User } from '../services/data.service';
               </div>
             }
             
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-4">
               <div>
-                <label class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">
+                <label class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1.5">
                   Nome Completo *
                 </label>
                 <input 
@@ -50,11 +51,11 @@ import { DataService, User } from '../services/data.service';
                   name="name"
                   type="text" 
                   [class.border-red-500]="submitted() && !formData.name"
-                  class="w-full px-4 py-3 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-primary-500">
+                  class="w-full px-3 sm:px-4 py-2.5 sm:py-3 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-primary-500 text-sm sm:text-base">
               </div>
               
               <div>
-                <label class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">
+                <label class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1.5">
                   E-mail *
                 </label>
                 <input 
@@ -62,17 +63,17 @@ import { DataService, User } from '../services/data.service';
                   name="email"
                   type="email" 
                   [class.border-red-500]="submitted() && !formData.email"
-                  class="w-full px-4 py-3 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-primary-500">
+                  class="w-full px-3 sm:px-4 py-2.5 sm:py-3 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-primary-500 text-sm sm:text-base">
               </div>
               
               <div>
-                <label class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">
+                <label class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1.5">
                   Perfil de Acesso *
                 </label>
                 <select 
                   [(ngModel)]="formData.role"
                   name="role"
-                  class="w-full px-4 py-3 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-primary-500">
+                  class="w-full px-3 sm:px-4 py-2.5 sm:py-3 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-primary-500 text-sm sm:text-base">
                   <option value="Admin">Admin - Acesso Total</option>
                   <option value="Gerente">Gerente - Gestão de Pátios</option>
                   <option value="Operador">Operador - Visualização</option>
@@ -92,16 +93,16 @@ import { DataService, User } from '../services/data.service';
               </label>
             </div>
             
-            <div class="flex gap-3 pt-4">
+            <div class="flex flex-col sm:flex-row gap-2 sm:gap-3 pt-4">
               <button 
                 type="submit"
-                class="px-6 py-3 rounded-xl bg-primary-500 text-white font-bold hover:bg-primary-600 transition-colors">
+                class="w-full sm:w-auto px-4 sm:px-6 py-3 rounded-xl bg-primary-500 text-white font-bold hover:bg-primary-600 transition-colors text-sm sm:text-base">
                 Salvar
               </button>
               <button 
                 type="button"
                 (click)="cancelForm()"
-                class="px-6 py-3 rounded-xl bg-slate-200 dark:bg-slate-700 text-slate-700 dark:text-slate-300 font-bold hover:bg-slate-300 dark:hover:bg-slate-600 transition-colors">
+                class="w-full sm:w-auto px-4 sm:px-6 py-3 rounded-xl bg-slate-200 dark:bg-slate-700 text-slate-700 dark:text-slate-300 font-bold hover:bg-slate-300 dark:hover:bg-slate-600 transition-colors text-sm sm:text-base">
                 Cancelar
               </button>
             </div>
@@ -124,33 +125,35 @@ import { DataService, User } from '../services/data.service';
             </thead>
             <tbody>
               @for (user of dataService.users(); track user.id) {
-                <tr class="border-b border-slate-100 dark:border-slate-800 hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors">
-                  <td class="py-4 px-4">
+                <tr class="border-b border-slate-100 dark:border-slate-800 hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors text-sm sm:text-base leading-snug">
+                  <td class="py-4 px-4 align-middle">
                     <div class="flex items-center gap-3">
-                      <div class="w-10 h-10 rounded-full bg-gradient-to-r from-primary-500 to-accent-500 flex items-center justify-center text-white font-bold text-sm">
-                        {{ user.name.charAt(0) }}
+                      <div class="w-10 h-10 rounded-full bg-gradient-to-r from-primary-500 to-accent-500 flex items-center justify-center text-white font-bold text-base leading-[1] uppercase tracking-[0.02em] font-mono">
+                        {{ (user.name | slice:0:1) | uppercase }}
                       </div>
-                      <span class="font-medium text-slate-900 dark:text-white">{{ user.name }}</span>
+                      <span class="font-semibold text-slate-900 dark:text-white leading-snug">{{ user.name }}</span>
                     </div>
                   </td>
-                  <td class="py-4 px-4 text-sm text-slate-600 dark:text-slate-400">{{ user.email }}</td>
+                  <td class="py-4 px-4 text-sm text-slate-600 dark:text-slate-400 leading-snug">
+                    <span class="block truncate max-w-[200px] sm:max-w-[260px]" [title]="user.email">{{ user.email }}</span>
+                  </td>
                   <td class="py-4 px-4">
-                    <span [class]="getRoleBadgeClass(user.role)" class="px-3 py-1 rounded-lg text-xs font-bold">
+                    <span [class]="getRoleBadgeClass(user.role)" class="px-3 py-1 rounded-lg text-xs font-bold leading-snug">
                       {{ user.role }}
                     </span>
                   </td>
                   <td class="py-4 px-4">
                     @if (user.isActive) {
-                      <span class="px-3 py-1 rounded-lg bg-emerald-100 dark:bg-emerald-900/30 text-emerald-700 dark:text-emerald-300 text-xs font-bold">
+                      <span class="px-3 py-1 rounded-lg bg-emerald-100 dark:bg-emerald-900/30 text-emerald-700 dark:text-emerald-300 text-xs font-bold leading-snug">
                         Ativo
                       </span>
                     } @else {
-                      <span class="px-3 py-1 rounded-lg bg-slate-200 dark:bg-slate-700 text-slate-600 dark:text-slate-400 text-xs font-bold">
+                      <span class="px-3 py-1 rounded-lg bg-slate-200 dark:bg-slate-700 text-slate-600 dark:text-slate-400 text-xs font-bold leading-snug">
                         Inativo
                       </span>
                     }
                   </td>
-                  <td class="py-4 px-4 text-sm text-slate-600 dark:text-slate-400">
+                  <td class="py-4 px-4 text-sm text-slate-600 dark:text-slate-400 leading-snug whitespace-nowrap">
                     {{ user.lastLogin ? (user.lastLogin | date:'dd/MM/yyyy HH:mm') : 'Nunca' }}
                   </td>
                   <td class="py-4 px-4">
@@ -179,6 +182,7 @@ import { DataService, User } from '../services/data.service';
 })
 export class UserManagementComponent {
   dataService = inject(DataService);
+  toast = inject(ToastService);
   showForm = signal(false);
   editingUser = signal<User | null>(null);
   errorMessage = signal('');
@@ -231,8 +235,10 @@ export class UserManagementComponent {
 
     if (this.editingUser()) {
       this.dataService.updateUser(this.editingUser()!.id, this.formData);
+      this.toast.add('Usuário atualizado');
     } else {
       this.dataService.addUser(this.formData);
+      this.toast.add('Usuário criado');
     }
     this.cancelForm();
   }
@@ -252,6 +258,7 @@ export class UserManagementComponent {
 
   toggleUserStatus(user: User) {
     this.dataService.updateUser(user.id, { isActive: !user.isActive });
+    this.toast.add(user.isActive ? 'Usuário desativado' : 'Usuário ativado', 'info');
   }
 }
 

@@ -126,7 +126,7 @@ export class DataService {
   private _users: User[] = [
     {
       id: '1',
-      name: 'João Silva',
+      name: 'Wilson',
       email: 'joao@revendapremium.com.br',
       role: 'Admin',
       isActive: true,
@@ -135,7 +135,7 @@ export class DataService {
     },
     {
       id: '2',
-      name: 'Maria Santos',
+      name: 'Gustavo',
       email: 'maria@revendapremium.com.br',
       role: 'Gerente',
       isActive: true,
@@ -143,7 +143,7 @@ export class DataService {
     },
     {
       id: '3',
-      name: 'Pedro Oliveira',
+      name: 'Pedro',
       email: 'pedro@revendapremium.com.br',
       role: 'Operador',
       isActive: true,
@@ -655,6 +655,28 @@ export class DataService {
      this.inventory.set([...this._inventory]);
   }
 
+  updateInventoryItem(id: string, updates: Partial<Vehicle>) {
+    const index = this._inventory.findIndex(v => v.id === id);
+    if (index === -1) return;
+
+    const updated: Vehicle = {
+      ...this._inventory[index],
+      ...updates,
+      projectedProfit: updates.projectedProfit ?? this._inventory[index].projectedProfit,
+      profitMarginPercent: updates.profitMarginPercent ?? this._inventory[index].profitMarginPercent
+    };
+
+    this._inventory[index] = updated;
+    this.inventory.set([...this._inventory]);
+  }
+
+  deleteInventoryItem(id: string) {
+    const next = this._inventory.filter(v => v.id !== id);
+    if (next.length === this._inventory.length) return;
+    this._inventory = next;
+    this.inventory.set([...this._inventory]);
+  }
+
   getMarketTrends(modelName: string) {
     const basePrice = 100000 + (modelName.length * 5000);
     const volatility = 0.05;
@@ -676,6 +698,8 @@ export class DataService {
     const inv = this.inventory();
     
     const stagnantStock = inv.filter(i => (i.daysInStock || 0) > 60);
+    const fraudSuspects = this._rawVehicles.filter(v => v.isFraudSuspect);
+    const highMarginOpps = opps.filter(v => v.profitMarginPercent >= this._settings.alertProfitMargin);
 
     return {
       potentialProfit: opps.reduce((acc, curr) => acc + curr.projectedProfit, 0),
@@ -684,7 +708,118 @@ export class DataService {
       stagnantStockCount: stagnantStock.length,
       averageMargin: opps.length > 0 
         ? opps.reduce((acc, curr) => acc + curr.profitMarginPercent, 0) / opps.length 
-        : 0
+        : 0,
+      fraudSuspectsCount: fraudSuspects.length,
+      highMarginCount: highMarginOpps.length,
+      totalProcessed: this._rawVehicles.length + 150,
+      duplicatesRemoved: 23,
+      plnExtracted: 89
     };
   });
+
+  getCollectionStatus() {
+    const now = new Date();
+    return [
+      {
+        platform: 'OLX',
+        status: 'success' as const,
+        lastRun: new Date(now.getTime() - 2 * 3600000),
+        itemsCollected: 45,
+        itemsProcessed: 42,
+        duplicatesRemoved: 3
+      },
+      {
+        platform: 'WebMotors',
+        status: 'success' as const,
+        lastRun: new Date(now.getTime() - 1 * 3600000),
+        itemsCollected: 38,
+        itemsProcessed: 38,
+        duplicatesRemoved: 0
+      },
+      {
+        platform: 'iCarros',
+        status: 'running' as const,
+        lastRun: new Date(now.getTime() - 15 * 60000),
+        itemsCollected: 0,
+        itemsProcessed: 0,
+        duplicatesRemoved: 0
+      },
+      {
+        platform: 'AutoLine',
+        status: 'success' as const,
+        lastRun: new Date(now.getTime() - 3 * 3600000),
+        itemsCollected: 28,
+        itemsProcessed: 26,
+        duplicatesRemoved: 2
+      }
+    ];
+  }
+
+  getTopOpportunities(limit: number = 5) {
+    return this.opportunities()
+      .filter(v => v.negotiationStatus === 'Novo')
+      .sort((a, b) => b.profitMarginPercent - a.profitMarginPercent)
+      .slice(0, limit);
+  }
+
+  getFraudAlerts() {
+    return this._rawVehicles.filter(v => v.isFraudSuspect).slice(0, 3);
+  }
+
+  getRegionalAnalysis() {
+    const opps = this.opportunities();
+    const byRegion = opps.reduce((acc, v) => {
+      const region = v.location || 'Unknown';
+      if (!acc[region]) {
+        acc[region] = { count: 0, avgMargin: 0, totalProfit: 0 };
+      }
+      acc[region].count++;
+      acc[region].avgMargin += v.profitMarginPercent;
+      acc[region].totalProfit += v.projectedProfit;
+      return acc;
+    }, {} as Record<string, { count: number; avgMargin: number; totalProfit: number }>);
+
+    return Object.entries(byRegion).map(([region, data]) => ({
+      region,
+      count: data.count,
+      avgMargin: data.avgMargin / data.count,
+      totalProfit: data.totalProfit
+    })).sort((a, b) => b.avgMargin - a.avgMargin);
+  }
+
+  getRecentActivity() {
+    const now = new Date();
+    return [
+      {
+        type: 'collection' as const,
+        platform: 'OLX',
+        message: 'Coleta concluída: 45 anúncios coletados',
+        time: new Date(now.getTime() - 2 * 3600000)
+      },
+      {
+        type: 'processing' as const,
+        platform: 'Sistema',
+        message: 'PLN processou 89 descrições',
+        time: new Date(now.getTime() - 2 * 3600000 + 5 * 60000)
+      },
+      {
+        type: 'validation' as const,
+        platform: 'FIPE',
+        message: '23 veículos validados com dados FIPE',
+        time: new Date(now.getTime() - 2 * 3600000 + 10 * 60000)
+      },
+      {
+        type: 'fraud' as const,
+        platform: 'Sistema',
+        message: '1 anúncio marcado como suspeito',
+        time: new Date(now.getTime() - 2 * 3600000 + 15 * 60000)
+      },
+      {
+        type: 'opportunity' as const,
+        platform: 'Sistema',
+        message: '3 novas oportunidades de alta margem identificadas',
+        time: new Date(now.getTime() - 3 * 3600000)
+      }
+    ];
+  }
 }
